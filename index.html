@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jogo da Memória · KiFácil</title>
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;1,500;1,600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav class="nav">
+  <a href="../../app-academia/academia.html">Academia KiFácil</a>
+  <span class="nav-sep">›</span>
+  <a href="../../app-academia/jogos.html">Jogos</a>
+  <span class="nav-sep">›</span>
+  Jogo da Memória
+</nav>
+
+<header class="header">
+  <div>
+    <div class="eyebrow">Jogo de Memória · KiFácil</div>
+    <h1 class="page-title">Jogo da Memória</h1>
+  </div>
+  <div class="header-stats" id="header-stats">
+    <div class="hstat"><span class="hstat-label">Tempo</span><span class="hstat-valor" id="stat-tempo">00:00</span></div>
+    <div class="hstat"><span class="hstat-label">Jogadas</span><span class="hstat-valor" id="stat-jogadas">0</span></div>
+    <div class="hstat"><span class="hstat-label">Pares</span><span class="hstat-valor" id="stat-pares">0/0</span></div>
+  </div>
+</header>
+
+<div id="game-area">
+
+  <!-- TABULEIRO -->
+  <div id="tabuleiro-wrap">
+    <div id="tabuleiro"></div>
+  </div>
+
+  <!-- BARRA DE PRÉVIA / EMBARALHAR -->
+  <div id="preview-wrap" class="hidden">
+    <div id="preview-texto">Memorize as cartas...</div>
+    <button class="btn-jogo" id="btn-embaralhar">🔀 Embaralhar e Começar</button>
+  </div>
+
+  <!-- TELA DE SELEÇÃO DE DIFICULDADE -->
+  <div id="overlay-dificuldade" class="game-overlay">
+    <div class="overlay-card">
+      <div class="overlay-eyebrow">Preparação</div>
+      <div class="overlay-titulo">Escolha a dificuldade</div>
+      <div class="overlay-texto">Vire duas cartas por vez. Se forem iguais, elas ficam reveladas. Encontre todos os pares!</div>
+      <div class="dificuldade-opcoes">
+        <button class="dificuldade-card" data-nivel="facil">
+          <div class="dificuldade-nome">Fácil</div>
+          <div class="dificuldade-info">6 pares · 12 cartas</div>
+          <div class="dificuldade-recorde" id="recorde-facil"></div>
+        </button>
+        <button class="dificuldade-card" data-nivel="medio">
+          <div class="dificuldade-nome">Médio</div>
+          <div class="dificuldade-info">10 pares · 20 cartas</div>
+          <div class="dificuldade-recorde" id="recorde-medio"></div>
+        </button>
+        <button class="dificuldade-card" data-nivel="dificil">
+          <div class="dificuldade-nome">Difícil</div>
+          <div class="dificuldade-info">15 pares · 30 cartas</div>
+          <div class="dificuldade-recorde" id="recorde-dificil"></div>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TELA DE VITÓRIA -->
+  <div id="overlay-vitoria" class="game-overlay hidden">
+    <div class="overlay-card">
+      <div class="overlay-eyebrow">Parabéns!</div>
+      <div class="overlay-titulo">Você encontrou todos os pares!</div>
+      <div class="vitoria-stats-row">
+        <div class="vitoria-stat"><strong id="vit-tempo">00:00</strong><span>Tempo</span></div>
+        <div class="vitoria-stat"><strong id="vit-jogadas">0</strong><span>Jogadas</span></div>
+      </div>
+      <div class="vitoria-xp" id="vit-xp"></div>
+      <div class="vitoria-recorde" id="vit-recorde"></div>
+      <div class="overlay-texto">Sair ou jogar de novo?</div>
+      <div class="overlay-actions">
+        <button class="btn-jogo" id="btn-jogar-de-novo">🔁 Jogar de Novo</button>
+        <a href="../../app-academia/jogos.html" class="btn-jogo-secundario">🚪 Sair</a>
+        <button class="btn-jogo-secundario" id="btn-trocar-dificuldade">Trocar Dificuldade</button>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /game-area -->
+
+<script src="script.js"></script>
+<script type="module">
+  import { requireAuth }          from '../../app-academia/js/guards.js';
+  import { session }              from '../../app-academia/js/session.js';
+  import { usuarioAtual }         from '../../app-academia/js/auth.js';
+  import { registrarEntradaFase } from '../../app-academia/js/progresso.js';
+
+  await requireAuth('../../app-academia/login.html').catch(() => {});
+  await session.aguardar();
+  document.body.style.visibility = 'visible';
+
+  window._concederXpMemoria = async function (xp) {
+    const user = usuarioAtual();
+    if (!user) return;
+    try { await registrarEntradaFase(user.uid, xp); }
+    catch (e) { console.error('[Jogo da Memória] Erro ao conceder XP:', e); }
+  };
+</script>
+</body>
+</html>
