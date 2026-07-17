@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jogo do Labirinto · KiFácil</title>
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;1,500;1,600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav class="nav">
+  <a href="../../app-academia/academia.html">Academia KiFácil</a>
+  <span class="nav-sep">›</span>
+  <a href="../../app-academia/jogos.html">Jogos</a>
+  <span class="nav-sep">›</span>
+  Jogo do Labirinto
+</nav>
+
+<header class="header">
+  <div>
+    <div class="eyebrow">Jogo do Labirinto · KiFácil</div>
+    <h1 class="page-title">Jogo do Labirinto</h1>
+  </div>
+  <div class="header-stats" id="header-stats">
+    <div class="hstat"><span class="hstat-label">Tempo</span><span class="hstat-valor" id="stat-tempo">00:00</span></div>
+    <div class="hstat"><span class="hstat-label">Passos</span><span class="hstat-valor" id="stat-passos">0</span></div>
+  </div>
+</header>
+
+<div id="game-area">
+
+  <!-- LABIRINTO -->
+  <div id="labirinto-wrap">
+    <div id="labirinto"></div>
+  </div>
+
+  <!-- CONTROLES MOBILE -->
+  <div id="controles-mobile" class="hidden">
+    <div class="ctrl-linha">
+      <button class="ctrl-btn" data-dir="cima">▲</button>
+    </div>
+    <div class="ctrl-linha">
+      <button class="ctrl-btn" data-dir="esquerda">◀</button>
+      <button class="ctrl-btn" data-dir="baixo">▼</button>
+      <button class="ctrl-btn" data-dir="direita">▶</button>
+    </div>
+  </div>
+
+  <!-- TELA DE SELEÇÃO DE GATO -->
+  <div id="overlay-gato" class="game-overlay">
+    <div class="overlay-card">
+      <div class="overlay-eyebrow">Preparação</div>
+      <div class="overlay-titulo">Escolha seu gato</div>
+      <div class="overlay-texto">Guie o seu gato pela trilha até a saída do labirinto.</div>
+      <div class="gato-opcoes">
+        <button class="gato-card" data-gato="pitu">
+          <img src="../imagens-animais/pitu-em-pe.png" alt="Pitu">
+          <div class="gato-nome">Pitu</div>
+        </button>
+        <button class="gato-card" data-gato="chico">
+          <img src="../imagens-animais/chico-em-pe.png" alt="Chico">
+          <div class="gato-nome">Chico</div>
+        </button>
+        <button class="gato-card" data-gato="teti">
+          <img src="../imagens-animais/teti.png" alt="Teti">
+          <div class="gato-nome">Teti</div>
+        </button>
+        <button class="gato-card" data-gato="bentinho">
+          <img src="../imagens-animais/bentinho-em-pe.png" alt="Bentinho">
+          <div class="gato-nome">Bentinho</div>
+        </button>
+        <button class="gato-card" data-gato="lolo">
+          <img src="../imagens-animais/lolo.png" alt="Lolo">
+          <div class="gato-nome">Lolo</div>
+        </button>
+        <button class="gato-card" data-gato="lanlan">
+          <img src="../imagens-animais/lanlan.png" alt="Lanlan">
+          <div class="gato-nome">Lanlan</div>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TELA DE SELEÇÃO DE DIFICULDADE -->
+  <div id="overlay-dificuldade" class="game-overlay hidden">
+    <div class="overlay-card">
+      <div class="overlay-eyebrow">Preparação</div>
+      <div class="overlay-titulo">Escolha o tamanho do labirinto</div>
+      <div class="overlay-texto" id="gato-escolhido-texto"></div>
+      <div class="dificuldade-opcoes">
+        <button class="dificuldade-card" data-nivel="pequeno">
+          <div class="dificuldade-nome">Pequeno</div>
+          <div class="dificuldade-info">9 × 9</div>
+          <div class="dificuldade-recorde" id="recorde-pequeno"></div>
+        </button>
+        <button class="dificuldade-card" data-nivel="medio">
+          <div class="dificuldade-nome">Médio</div>
+          <div class="dificuldade-info">13 × 13</div>
+          <div class="dificuldade-recorde" id="recorde-medio"></div>
+        </button>
+        <button class="dificuldade-card" data-nivel="grande">
+          <div class="dificuldade-nome">Grande</div>
+          <div class="dificuldade-info">17 × 17</div>
+          <div class="dificuldade-recorde" id="recorde-grande"></div>
+        </button>
+      </div>
+      <button class="btn-jogo-secundario" id="btn-trocar-gato">‹ Trocar de gato</button>
+    </div>
+  </div>
+
+  <!-- TELA DE VITÓRIA -->
+  <div id="overlay-vitoria" class="game-overlay hidden">
+    <div class="overlay-card">
+      <div class="overlay-eyebrow">Parabéns!</div>
+      <div class="overlay-titulo" id="vit-titulo">Seu gato escapou do labirinto!</div>
+      <div class="vitoria-stats-row">
+        <div class="vitoria-stat"><strong id="vit-tempo">00:00</strong><span>Tempo</span></div>
+        <div class="vitoria-stat"><strong id="vit-passos">0</strong><span>Passos</span></div>
+      </div>
+      <div class="vitoria-xp" id="vit-xp"></div>
+      <div class="vitoria-recorde" id="vit-recorde"></div>
+      <div class="overlay-texto">Sair ou jogar de novo?</div>
+      <div class="overlay-actions">
+        <button class="btn-jogo" id="btn-jogar-de-novo">🔁 Jogar de Novo</button>
+        <a href="../../app-academia/jogos.html" class="btn-jogo-secundario">🚪 Sair</a>
+        <button class="btn-jogo-secundario" id="btn-trocar-dificuldade">Trocar Tamanho</button>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /game-area -->
+
+<script src="script.js"></script>
+<script type="module">
+  import { requireAuth }          from '../../app-academia/js/guards.js';
+  import { session }              from '../../app-academia/js/session.js';
+  import { usuarioAtual }         from '../../app-academia/js/auth.js';
+  import { registrarEntradaFase } from '../../app-academia/js/progresso.js';
+
+  await requireAuth('../../app-academia/login.html').catch(() => {});
+  await session.aguardar();
+  document.body.style.visibility = 'visible';
+
+  window._concederXpLabirinto = async function (xp) {
+    const user = usuarioAtual();
+    if (!user) return;
+    try { await registrarEntradaFase(user.uid, xp); }
+    catch (e) { console.error('[Jogo do Labirinto] Erro ao conceder XP:', e); }
+  };
+</script>
+</body>
+</html>
