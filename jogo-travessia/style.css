@@ -1,0 +1,248 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:        #2e2016;
+  --text:      #f5ead0;
+  --soft:      #e8d4b0;
+  --gold:      #e8b84b;
+  --gold-dim:  #b8891e;
+  --border:    rgba(212,170,106,0.4);
+  --panel-bg:  rgba(6,3,0,0.93);
+  --ok:        rgba(100,220,130,0.92);
+  --rio:       #2a5a78;
+}
+
+html, body {
+  height: 100%; overflow: hidden;
+  font-family: 'Libre Baskerville', serif;
+  color: var(--text);
+  background: var(--bg);
+}
+body { display: flex; flex-direction: column; visibility: hidden; }
+
+/* ── NAV ── */
+.nav {
+  background: #1a0f08;
+  padding: 10px 28px;
+  display: flex; align-items: center; gap: 8px;
+  border-bottom: 1px solid var(--border);
+  font-size: 11px; color: var(--soft);
+  letter-spacing: .04em; flex-shrink: 0;
+}
+.nav a { color: var(--gold); text-decoration: none; }
+.nav a:hover { text-decoration: underline; }
+.nav-sep { color: rgba(232,216,176,0.35); }
+
+/* ── HEADER ── */
+.header {
+  background: #1a0f08;
+  padding: 14px 28px 12px;
+  border-bottom: 1px solid rgba(212,170,106,0.2);
+  display: flex; align-items: center; justify-content: space-between;
+  flex-shrink: 0; flex-wrap: wrap; gap: 10px;
+}
+.eyebrow { font-size: 9px; letter-spacing: .16em; text-transform: uppercase; color: var(--gold); margin-bottom: 3px; }
+.page-title { font-family: 'Lora', serif; font-size: 24px; font-weight: 600; color: var(--text); line-height: 1.1; }
+
+.header-stats { display: flex; gap: 22px; }
+.hstat { display: flex; flex-direction: column; align-items: center; min-width: 56px; }
+.hstat-label { font-size: 8px; letter-spacing: .12em; text-transform: uppercase; color: rgba(232,216,176,0.5); }
+.hstat-valor { font-family: 'Lora', serif; font-size: 18px; font-weight: 600; color: var(--gold); }
+
+/* ── GAME AREA ── */
+#game-area { position: relative; flex: 1; min-height: 0; overflow: hidden; background: radial-gradient(ellipse at 50% 0%, #3a2a1a 0%, #1a1024 70%); }
+
+#cena-rio { position: absolute; inset: 0; display: flex; padding: 30px; gap: 0; }
+
+/* ── BARCO EM TRÂNSITO (animação de atravessar) ── */
+#barco-transito {
+  position: absolute; top: 50%; left: 15%;
+  transform: translate(-50%, -50%);
+  transition: left 2.2s cubic-bezier(.45,.05,.35,1);
+  display: flex; flex-direction: column; align-items: center; gap: 4px;
+  z-index: 30;
+  pointer-events: none;
+}
+#barco-transito.hidden { display: none; }
+#barco-transito .barco-tripulacao { display: flex; align-items: flex-end; animation: balancarBarco .6s ease-in-out infinite; }
+#barco-transito .barco-icone { font-size: 40px; }
+#barco-transito .barqueiro-img { width: 36px; height: 36px; object-fit: contain; margin-left: -10px; }
+#barco-transito .transito-passageiro { display: flex; flex-direction: column; align-items: center; }
+#barco-transito .transito-passageiro img { width: 30px; height: 30px; object-fit: contain; }
+#barco-transito .transito-passageiro .item-emoji { font-size: 24px; }
+@keyframes balancarBarco {
+  0%, 100% { transform: rotate(-4deg) translateY(0); }
+  50%      { transform: rotate(4deg) translateY(-3px); }
+}
+
+.margem {
+  flex: 1;
+  background: rgba(255,255,255,0.03);
+  border: 1.5px solid rgba(212,170,106,0.2);
+  border-radius: 14px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 18px;
+  padding: 24px;
+  position: relative;
+}
+
+.rio {
+  width: 90px; flex-shrink: 0;
+  background: linear-gradient(180deg, var(--rio), #163b52);
+  position: relative;
+  overflow: hidden;
+  border-top: 3px solid rgba(232,184,75,0.15);
+  border-bottom: 3px solid rgba(232,184,75,0.15);
+}
+.rio-onda {
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(45deg, rgba(255,255,255,0.05) 0 8px, transparent 8px 16px);
+  animation: fluirRio 3s linear infinite;
+}
+@keyframes fluirRio { 0% { transform: translateY(0); } 100% { transform: translateY(22px); } }
+
+.item-slot {
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+  background: rgba(255,255,255,0.03);
+  border: 2px solid rgba(212,170,106,0.25);
+  border-radius: 10px;
+  padding: 12px 16px;
+  cursor: pointer;
+  transition: border-color .15s, background .15s, transform .15s;
+  width: 92px;
+}
+.item-slot:hover { border-color: rgba(232,184,75,0.5); transform: translateY(-2px); }
+.item-slot.selecionado { border-color: var(--gold); background: rgba(232,184,75,0.12); box-shadow: 0 0 12px rgba(232,184,75,0.35); }
+.item-slot.desabilitado { opacity: .35; cursor: default; pointer-events: none; }
+.item-slot img { width: 44px; height: 44px; object-fit: contain; animation: vivoBalanco 2.2s ease-in-out infinite; }
+.item-slot .item-emoji { font-size: 34px; line-height: 1; display: inline-block; animation: vivoBalanco 2.2s ease-in-out infinite; }
+.item-slot .item-nome { font-size: 10.5px; color: var(--soft); }
+.item-slot:nth-child(2) img, .item-slot:nth-child(2) .item-emoji { animation-delay: .3s; }
+.item-slot:nth-child(3) img, .item-slot:nth-child(3) .item-emoji { animation-delay: .6s; }
+@keyframes vivoBalanco {
+  0%, 100% { transform: rotate(-3deg) translateY(0); }
+  50%      { transform: rotate(3deg) translateY(-4px); }
+}
+
+.barco-controle {
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  margin-top: 6px;
+}
+.barco-tripulacao { display: flex; align-items: flex-end; gap: -6px; animation: boiarBarco 2s ease-in-out infinite; }
+.barco-icone { font-size: 40px; }
+.barqueiro-img { width: 40px; height: 40px; object-fit: contain; margin-left: -12px; }
+@keyframes boiarBarco {
+  0%, 100% { transform: translateY(0) rotate(-2deg); }
+  50%      { transform: translateY(-3px) rotate(2deg); }
+}
+
+/* ── SELEÇÃO DE NÍVEL (reaproveita padrão dos outros jogos) ── */
+.dificuldade-opcoes { display: flex; flex-direction: column; gap: 10px; width: 100%; margin-top: .3rem; }
+.dificuldade-card {
+  background: rgba(255,255,255,0.03);
+  border: 2px solid rgba(212,170,106,0.25);
+  border-radius: 10px;
+  padding: 14px 18px;
+  cursor: pointer;
+  text-align: left;
+  font-family: 'Libre Baskerville', serif;
+  transition: border-color .15s, background .15s;
+}
+.dificuldade-card:hover { border-color: rgba(232,184,75,0.6); background: rgba(232,184,75,0.07); }
+.dificuldade-nome { font-family: 'Lora', serif; font-size: 16px; font-weight: 600; color: var(--text); }
+.dificuldade-info { font-size: 11.5px; color: rgba(245,234,208,0.55); margin-top: 2px; }
+.dificuldade-recorde { font-size: 11px; color: var(--gold); margin-top: 5px; font-style: italic; min-height: 14px; }
+.barco-controle .btn-atravessar {
+  background: linear-gradient(135deg, var(--gold), var(--gold-dim));
+  border: none; border-radius: 8px;
+  padding: .55rem 1.2rem;
+  font-family: 'Libre Baskerville', serif;
+  font-size: 11.5px; font-weight: 700;
+  color: #1a0f08; cursor: pointer;
+  letter-spacing: .04em; text-transform: uppercase;
+  transition: filter .15s, transform .15s;
+}
+.barco-controle .btn-atravessar:hover { filter: brightness(1.1); transform: scale(1.03); }
+
+/* ── OVERLAYS ── */
+.game-overlay {
+  position: absolute; inset: 0; z-index: 200;
+  background: rgba(6,3,0,0.9);
+  display: flex; align-items: center; justify-content: center;
+  padding: 20px;
+}
+.game-overlay.hidden { display: none; }
+
+.overlay-card {
+  background: var(--panel-bg);
+  border: 1.5px solid rgba(212,170,106,0.35);
+  border-radius: 16px;
+  padding: 2rem 2.2rem;
+  max-width: 480px; width: 100%;
+  text-align: center;
+  display: flex; flex-direction: column; align-items: center; gap: .9rem;
+  box-shadow: 0 8px 50px rgba(0,0,0,.85);
+  max-height: 90vh; overflow-y: auto;
+}
+.overlay-eyebrow { font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: var(--gold); }
+.overlay-titulo { font-family: 'Lora', serif; font-size: 24px; font-weight: 600; color: var(--text); line-height: 1.3; }
+.overlay-texto { font-size: 13px; color: var(--soft); line-height: 1.6; }
+
+.vitoria-stats-row { display: flex; gap: 30px; justify-content: center; margin-top: .3rem; }
+.vitoria-stat strong { display: block; color: var(--gold); font-size: 22px; font-family: 'Lora', serif; }
+.vitoria-stat span { font-size: 10px; letter-spacing: .06em; text-transform: uppercase; color: rgba(245,234,208,0.5); }
+.vitoria-xp {
+  display: inline-block;
+  background: rgba(232,184,75,0.1);
+  border: 1px solid rgba(232,184,75,0.38);
+  border-radius: 20px;
+  padding: .3rem 1.1rem;
+  font-family: 'Lora', serif; font-size: 18px; font-weight: 600;
+  color: var(--gold);
+}
+.vitoria-recorde, .overlay-recorde { font-size: 12px; color: var(--soft); font-style: italic; }
+
+.overlay-actions { display: flex; flex-direction: column; gap: 10px; width: 100%; margin-top: .5rem; }
+.btn-jogo {
+  background: linear-gradient(135deg, var(--gold), var(--gold-dim));
+  border: none; border-radius: 8px;
+  padding: .8rem 1.8rem;
+  font-family: 'Libre Baskerville', serif;
+  font-size: 13px; font-weight: 700;
+  color: #1a0f08; cursor: pointer;
+  letter-spacing: .05em; text-transform: uppercase;
+  transition: filter .15s, transform .15s;
+  width: 100%;
+}
+.btn-jogo:hover { filter: brightness(1.1); transform: scale(1.02); }
+.btn-jogo-secundario {
+  background: transparent;
+  border: 1px solid rgba(232,184,75,0.4);
+  border-radius: 8px;
+  padding: .7rem 1.8rem;
+  font-family: 'Libre Baskerville', serif;
+  font-size: 12px; font-weight: 700;
+  color: var(--gold); cursor: pointer;
+  letter-spacing: .05em; text-transform: uppercase;
+  text-decoration: none; text-align: center;
+  transition: border-color .15s, background .15s;
+  width: 100%; display: block;
+}
+.btn-jogo-secundario:hover { border-color: var(--gold); background: rgba(232,184,75,0.08); }
+
+/* ── MOBILE ── */
+@media (max-width: 768px) {
+  .nav { padding: 8px 14px; font-size: 10px; }
+  .header { padding: 10px 14px; }
+  .page-title { font-size: 18px; }
+  .header-stats { gap: 14px; }
+  .hstat { min-width: 44px; }
+  .hstat-valor { font-size: 14px; }
+  #cena-rio { padding: 12px; }
+  .rio { width: 44px; }
+  .item-slot { width: 72px; padding: 8px 10px; }
+  .item-slot img { width: 34px; height: 34px; }
+  .item-slot .item-emoji { font-size: 26px; }
+  .overlay-card { padding: 1.5rem 1.4rem; }
+  .overlay-titulo { font-size: 19px; }
+}

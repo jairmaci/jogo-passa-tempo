@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jogo da Travessia · KiFácil</title>
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;1,500;1,600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav class="nav">
+  <a href="../../app-academia/academia.html">Academia KiFácil</a>
+  <span class="nav-sep">›</span>
+  <a href="../../app-academia/jogos.html">Jogos</a>
+  <span class="nav-sep">›</span>
+  Jogo da Travessia
+</nav>
+
+<header class="header">
+  <div>
+    <div class="eyebrow">Jogo da Travessia · KiFácil</div>
+    <h1 class="page-title">Jogo da Travessia</h1>
+  </div>
+  <div class="header-stats" id="header-stats">
+    <div class="hstat"><span class="hstat-label">Travessias</span><span class="hstat-valor" id="stat-travessias">0</span></div>
+    <div class="hstat"><span class="hstat-label">Tempo</span><span class="hstat-valor" id="stat-tempo">00:00</span></div>
+  </div>
+</header>
+
+<div id="game-area">
+
+  <div id="cena-rio">
+    <div class="margem" id="margem-esq"></div>
+    <div class="rio"><div class="rio-onda"></div></div>
+    <div class="margem" id="margem-dir"></div>
+    <div id="barco-transito" class="hidden"></div>
+  </div>
+
+  <!-- TELA INICIAL -->
+  <div id="overlay-inicio" class="game-overlay">
+    <div class="overlay-card">
+      <div class="overlay-eyebrow">Preparação</div>
+      <div class="overlay-titulo">Jogo da Travessia</div>
+      <div class="overlay-texto">
+        O Alceu leva todo mundo pro outro lado do rio, um item por vez.<br><br>
+        Cuidado: se o <strong>Chico</strong> 🐱 ficar sozinho com o <strong>Ratinho</strong> 🐭 (sem o Alceu), ele come o Ratinho.
+        Se o Ratinho ficar sozinho com a <strong>Ração</strong> 🥣, ele belisca tudo!
+      </div>
+      <div class="overlay-recorde" id="recorde-unico"></div>
+      <button class="btn-jogo" id="btn-comecar">🚣 Começar</button>
+    </div>
+  </div>
+
+  <!-- TELA DE VITÓRIA -->
+  <div id="overlay-vitoria" class="game-overlay hidden">
+    <div class="overlay-card">
+      <div class="overlay-eyebrow">Parabéns!</div>
+      <div class="overlay-titulo">Todo mundo atravessou em segurança!</div>
+      <div class="vitoria-stats-row">
+        <div class="vitoria-stat"><strong id="vit-travessias">0</strong><span>Travessias</span></div>
+        <div class="vitoria-stat"><strong id="vit-tempo">00:00</strong><span>Tempo</span></div>
+      </div>
+      <div class="vitoria-xp" id="vit-xp"></div>
+      <div class="vitoria-recorde" id="vit-recorde"></div>
+      <div class="overlay-texto">Sair ou jogar de novo?</div>
+      <div class="overlay-actions">
+        <button class="btn-jogo" id="btn-jogar-de-novo">🔁 Jogar de Novo</button>
+        <a href="../../app-academia/jogos.html" class="btn-jogo-secundario">🚪 Sair</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- TELA DE DERROTA -->
+  <div id="overlay-derrota" class="game-overlay hidden">
+    <div class="overlay-card">
+      <div class="overlay-eyebrow">Ih...</div>
+      <div class="overlay-titulo" id="derrota-titulo">Deu errado!</div>
+      <div class="overlay-texto">Quer tentar de novo?</div>
+      <div class="overlay-actions">
+        <button class="btn-jogo" id="btn-tentar-de-novo">🔁 Tentar de Novo</button>
+        <a href="../../app-academia/jogos.html" class="btn-jogo-secundario">🚪 Sair</a>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /game-area -->
+
+<script src="script.js"></script>
+<script type="module">
+  import { requireAuth }          from '../../app-academia/js/guards.js';
+  import { session }              from '../../app-academia/js/session.js';
+  import { usuarioAtual }         from '../../app-academia/js/auth.js';
+  import { registrarEntradaFase } from '../../app-academia/js/progresso.js';
+
+  await requireAuth('../../app-academia/login.html').catch(() => {});
+  await session.aguardar();
+  document.body.style.visibility = 'visible';
+
+  window._concederXpTravessia = async function (xp) {
+    const user = usuarioAtual();
+    if (!user) return;
+    try { await registrarEntradaFase(user.uid, xp); }
+    catch (e) { console.error('[Jogo da Travessia] Erro ao conceder XP:', e); }
+  };
+</script>
+</body>
+</html>
