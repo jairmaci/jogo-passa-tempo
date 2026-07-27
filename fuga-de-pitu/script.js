@@ -9,24 +9,25 @@ const COLUNAS = 17;
 const N_LIN = Math.floor((LINHAS - 1) / 2);
 const N_COL = Math.floor((COLUNAS - 1) / 2);
 
-/* [nome, portas, chaves extras por porta (fases mais difíceis)] */
+/* [nome, portas obrigatórias, pares de porta-armadilha (1 vazia + 1 com bônus)] */
 const CONFIG_FASES = [
   ['A Entrada', 2, 0],
   ['Galeria das Chaves', 2, 0],
-  ['Sala dos Passos', 3, 0],
+  ['Sala dos Passos', 3, 1],
   ['Corredor Dourado', 3, 1],
-  ['Arquivo Secreto', 4, 0],
-  ['Portas da Academia', 4, 1],
-  ['Caminho da Despensa', 5, 1],
-  ['Ala dos Enigmas', 5, 1],
-  ['Trilha Final', 6, 1],
-  ['A Vasilha de Pitu', 6, 2],
+  ['Arquivo Secreto', 4, 1],
+  ['Portas da Academia', 4, 2],
+  ['Caminho da Despensa', 5, 2],
+  ['Ala dos Enigmas', 5, 2],
+  ['Trilha Final', 6, 3],
+  ['A Vasilha de Pitu', 6, 3],
 ];
 
 const $ = (id) => document.getElementById(id);
 
 let faseAtual = 0;
 let faseInfo = null;
+let mapasGerados = {};
 let grid = [];
 let jogador = { r: 0, c: 0 };
 let chavesBolso = 0;
@@ -157,7 +158,25 @@ function pontaDoRamo(adj, inicio, evitar) {
   return maisLonge;
 }
 
-function criarMapaFase(qtdPortas, extraChaves) {
+/* todas as células de um ramo (pra escolher mais de um lugar pra chave bônus) */
+function celulasDoRamo(adj, inicio, evitar) {
+  const chave = (p) => p[0] + ',' + p[1];
+  const visitado = new Set([chave(evitar)]);
+  const pilha = [inicio];
+  const celulas = [];
+  while (pilha.length) {
+    const atual = pilha.pop();
+    if (visitado.has(chave(atual))) continue;
+    visitado.add(chave(atual));
+    celulas.push(atual);
+    for (const viz of adj[atual[0]][atual[1]]) {
+      if (!visitado.has(chave(viz))) pilha.push(viz);
+    }
+  }
+  return celulas;
+}
+
+function criarMapaFase(qtdPortas, qtdArmadilhas) {
   const { mapa, adj } = gerarArvore();
   const caminho = encontrarCaminhoPrincipal(adj);
 
@@ -166,7 +185,7 @@ function criarMapaFase(qtdPortas, extraChaves) {
   caminho.forEach(([r, c], i) => {
     for (const [nr, nc] of adj[r][c]) {
       if (!noCaminho.has(nr + ',' + nc)) {
-        ramosPorIndice[i].push(pontaDoRamo(adj, [nr, nc], [r, c]));
+        ramosPorIndice[i].push({ entrada: [nr, nc], juncao: [r, c], ponta: pontaDoRamo(adj, [nr, nc], [r, c]) });
       }
     }
   });
@@ -184,16 +203,12 @@ function criarMapaFase(qtdPortas, extraChaves) {
 
     let ramosDoSegmento = [];
     for (let j = alvoIdx - 1; j > ultimoIdx; j--) {
-      ramosDoSegmento.push(...ramosPorIndice[j]);
+      if (ramosPorIndice[j].length) { ramosDoSegmento = ramosPorIndice[j]; ramosPorIndice[j] = []; break; }
     }
 
-    const usarBonus = extraChaves > 0 && ramosDoSegmento.length > 1;
-    const qtdChavesAqui = usarBonus ? 2 : 1;
     if (ramosDoSegmento.length) {
-      embaralhar(ramosDoSegmento).slice(0, Math.min(qtdChavesAqui, ramosDoSegmento.length)).forEach(([kr, kc]) => {
-        mapa[kr * 2 + 1][kc * 2 + 1] = 'K';
-      });
-      if (usarBonus) extraChaves--;
+      const [kr, kc] = ramosDoSegmento[0].ponta;
+      mapa[kr * 2 + 1][kc * 2 + 1] = 'K';
     } else {
       const [kr, kc] = caminho[alvoIdx - 1];
       mapa[kr * 2 + 1][kc * 2 + 1] = 'K';
@@ -204,6 +219,23 @@ function criarMapaFase(qtdPortas, extraChaves) {
     ultimoIdx = alvoIdx;
   }
 
+  /* ── portas "armadilha": ficam em ramos que NÃO fazem parte do caminho obrigatório.
+     Abrir custa 1 chave do bolso — dentro, às vezes não tem nada (prejuízo),
+     às vezes tem 2 chaves de bônus. É sempre opcional, nunca bloqueia a vasilha. */
+  const ramosSobrando = [];
+  ramosPorIndice.forEach((lista) => ramosSobrando.push(...lista));
+  embaralhar(ramosSobrando).slice(0, qtdArmadilhas * 2).forEach((ramo, idx) => {
+    const [er, ec] = ramo.entrada;
+    mapa[er * 2 + 1][ec * 2 + 1] = 'D';
+    const ehBonus = idx % 2 === 1; // alterna: metade vazia (prejuízo), metade com bônus
+    if (ehBonus) {
+      const celulas = celulasDoRamo(adj, ramo.entrada, ramo.juncao);
+      embaralhar(celulas).slice(0, Math.min(2, celulas.length)).forEach(([kr, kc]) => {
+        mapa[kr * 2 + 1][kc * 2 + 1] = 'K';
+      });
+    }
+  });
+
   const [pr, pc] = caminho[0];
   const [br, bc] = caminho[caminho.length - 1];
   mapa[pr * 2 + 1][pc * 2 + 1] = 'P';
@@ -213,13 +245,14 @@ function criarMapaFase(qtdPortas, extraChaves) {
 }
 
 function gerarFase(indice) {
-  const [nome, portas, extraChaves] = CONFIG_FASES[indice];
-  return { nome, mapa: criarMapaFase(portas, extraChaves) };
+  const [nome, portas, armadilhas] = CONFIG_FASES[indice];
+  return { nome, mapa: criarMapaFase(portas, armadilhas) };
 }
 
 /* ── FLUXO DO JOGO ── */
 function novoJogo() {
   pararTimer();
+  mapasGerados = {}; // novo jogo = novos labirintos sorteados
   faseAtual = 0;
   passos = 0;
   tempoInicio = null;
@@ -228,7 +261,8 @@ function novoJogo() {
 
 function carregarFase(indice) {
   faseAtual = indice;
-  faseInfo = gerarFase(indice);
+  if (!mapasGerados[indice]) mapasGerados[indice] = gerarFase(indice);
+  faseInfo = mapasGerados[indice];
   chavesBolso = 0;
   chavesColetadas = 0;
   portasAbertas = 0;
@@ -243,7 +277,7 @@ function carregarFase(indice) {
 
   renderMapa();
   atualizarStats();
-  $('mensagem-jogo').textContent = `${faseInfo.nome}: colete as ${totalChavesFase} chave(s) antes de passar pelas portas — elas se fecham atrás de você!`;
+  $('mensagem-jogo').textContent = `${faseInfo.nome}: cuidado com as chaves! Algumas portas escondem armadilhas.`;
   esconderOverlays();
   $('controles-mobile').classList.remove('hidden');
   jogoAtivo = true;
@@ -308,8 +342,8 @@ function mover(dir) {
     }
     chavesBolso--;
     portasAbertas++;
-    grid[nr][nc] = '#'; // passagem sem volta: a porta se fecha atrás de Pitu
-    $('mensagem-jogo').textContent = `Porta aberta — e já se fechou atrás de você! Faltam ${totalPortasFase - portasAbertas} porta(s).`;
+    grid[nr][nc] = '.'; // porta fica aberta pra sempre, dá pra ir e voltar
+    $('mensagem-jogo').textContent = 'Porta aberta!';
     tocar('porta');
   }
 
@@ -320,19 +354,12 @@ function mover(dir) {
     chavesBolso++;
     chavesColetadas++;
     grid[nr][nc] = '.';
-    $('mensagem-jogo').textContent = chavesColetadas === totalChavesFase
-      ? 'Última chave! Agora é só seguir até a ração.'
-      : 'Chave coletada.';
+    $('mensagem-jogo').textContent = 'Chave coletada.';
     tocar('ding');
   }
 
   if (destino === 'B') {
-    if (chavesColetadas < totalChavesFase) {
-      $('mensagem-jogo').textContent = `Ainda faltam ${totalChavesFase - chavesColetadas} chave(s)! Se alguma ficou presa atrás de uma porta fechada, reinicie a fase.`;
-      tocar('tranca');
-    } else {
-      concluirFase();
-    }
+    concluirFase();
   }
 
   renderMapa();
