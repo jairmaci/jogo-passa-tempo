@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Enigma dos Guardas · KiFácil</title>
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;1,500;1,600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav class="nav">
+  <a href="../../app-academia/academia.html">Academia KiFácil</a>
+  <span class="nav-sep">›</span>
+  <a href="../../app-academia/jogos.html">Jogos</a>
+  <span class="nav-sep">›</span>
+  Enigma dos Guardas
+</nav>
+
+<header class="header">
+  <div>
+    <div class="eyebrow">Enigma dos Guardas · KiFácil</div>
+    <h1 class="page-title">Enigma dos Guardas</h1>
+  </div>
+  <div class="header-stats" id="header-stats">
+    <div class="hstat"><span class="hstat-label">Sequência</span><span class="hstat-valor" id="stat-sequencia">0</span></div>
+    <div class="hstat"><span class="hstat-label">Melhor</span><span class="hstat-valor" id="stat-melhor">0</span></div>
+  </div>
+</header>
+
+<div id="game-area">
+
+  <div id="cena" class="hidden">
+    <div id="instrucao-topo">Escolha um guarda pra fazer <strong>uma única pergunta</strong>.</div>
+
+    <div id="portas-linha">
+      <div class="lado" id="lado-esquerda" data-lado="esquerda">
+        <div class="guarda-slot">
+          <div class="balao hidden" id="balao-esquerda"><span id="balao-texto-esquerda"></span></div>
+          <div class="guarda" id="guarda-lolo">
+            <img src="../imagens-animais/lolo.png" alt="Lolo">
+          </div>
+          <div class="guarda-nome">Lolo</div>
+        </div>
+        <div class="porta-3d" id="porta-esquerda">
+          <div class="porta-face porta-frente">
+            <div class="porta-detalhe"></div>
+            <div class="porta-mac"></div>
+          </div>
+          <div class="porta-face porta-verso">
+            <div class="porta-resultado" id="resultado-esquerda"></div>
+          </div>
+        </div>
+        <div class="porta-legenda">Porta da Esquerda</div>
+      </div>
+
+      <div class="lado" id="lado-direita" data-lado="direita">
+        <div class="guarda-slot">
+          <div class="balao hidden" id="balao-direita"><span id="balao-texto-direita"></span></div>
+          <div class="guarda" id="guarda-lanlan">
+            <img src="../imagens-animais/lanlan.png" alt="Lanlan">
+          </div>
+          <div class="guarda-nome">Lanlan</div>
+        </div>
+        <div class="porta-3d" id="porta-direita">
+          <div class="porta-face porta-frente">
+            <div class="porta-detalhe"></div>
+            <div class="porta-mac"></div>
+          </div>
+          <div class="porta-face porta-verso">
+            <div class="porta-resultado" id="resultado-direita"></div>
+          </div>
+        </div>
+        <div class="porta-legenda">Porta da Direita</div>
+      </div>
+    </div>
+
+    <div id="rodape-acao">
+      <div id="texto-etapa">Clique num gato pra perguntar.</div>
+      <button class="btn-jogo-secundario" id="btn-dica">💡 Dica</button>
+    </div>
+  </div>
+
+  <!-- PAINEL DE PERGUNTAS -->
+  <div id="painel-perguntas" class="game-overlay hidden">
+    <div class="overlay-card">
+      <div class="overlay-eyebrow" id="pergunta-guarda-nome">Perguntar pro Lolo</div>
+      <div class="overlay-titulo">Qual pergunta você vai fazer?</div>
+      <div class="pergunta-opcoes">
+        <button class="pergunta-btn" data-pergunta="direta">"Qual porta é a segura?"</button>
+        <button class="pergunta-btn" data-pergunta="cruzada">"Qual porta o OUTRO guarda diria que é a segura?"</button>
+        <button class="pergunta-btn" data-pergunta="sincero">"Você é o guarda sincero?"</button>
+      </div>
+      <button class="btn-jogo-secundario" id="btn-cancelar-pergunta">‹ Voltar</button>
+    </div>
+  </div>
+
+  <!-- TELA INICIAL -->
+  <div id="overlay-inicio" class="game-overlay">
+    <div class="overlay-card">
+      <div class="overlay-eyebrow">Preparação</div>
+      <div class="overlay-titulo">Enigma dos Guardas</div>
+      <div class="overlay-texto">
+        Duas portas. Atrás de uma tem um prêmio, atrás da outra não. O <strong>Lolo</strong> e a <strong>Lanlan</strong> tomam conta de uma porta cada.
+        Um dos dois <strong>sempre fala a verdade</strong>, o outro <strong>sempre mente</strong> — mas você não sabe quem é quem, e isso muda a cada rodada!<br><br>
+        Você só pode escolher <strong>um guarda</strong> e fazer <strong>uma pergunta</strong>. Depois, escolha uma porta.
+      </div>
+      <button class="btn-jogo" id="btn-comecar">🚪 Começar</button>
+    </div>
+  </div>
+
+  <!-- TELA DE DICA -->
+  <div id="overlay-dica" class="game-overlay hidden">
+    <div class="overlay-card">
+      <div class="overlay-eyebrow">Dica</div>
+      <div class="overlay-titulo">Pensa comigo...</div>
+      <div class="overlay-texto">
+        Uma das perguntas fala sobre o que o <strong>OUTRO</strong> guarda responderia. Pense: se o guarda que você perguntou for sincero, ele conta a verdade sobre o que o mentiroso diria (que é mentira). Se ele for o mentiroso, ele mente sobre o que o sincero diria (que é verdade).<br><br>
+        Ou seja: essa resposta <strong>sempre</strong> aponta pra porta errada — não importa quem você pergunta! E aí é só... fazer o contrário. 😉
+      </div>
+      <button class="btn-jogo" id="btn-fechar-dica">Entendi</button>
+    </div>
+  </div>
+
+  <!-- RESULTADO -->
+  <div id="overlay-resultado" class="game-overlay hidden">
+    <div class="overlay-card">
+      <div class="overlay-eyebrow" id="resultado-eyebrow">Resultado</div>
+      <div class="overlay-titulo" id="resultado-titulo">...</div>
+      <div class="overlay-texto" id="resultado-texto"></div>
+      <div class="vitoria-xp" id="vit-xp"></div>
+      <div class="vitoria-recorde" id="vit-recorde"></div>
+      <div class="overlay-actions">
+        <button class="btn-jogo" id="btn-jogar-de-novo">🔁 Jogar de Novo</button>
+        <a href="../../app-academia/jogos.html" class="btn-jogo-secundario">🚪 Sair</a>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /game-area -->
+
+<script src="script.js"></script>
+<script type="module">
+  import { requireAuth }          from '../../app-academia/js/guards.js';
+  import { session }              from '../../app-academia/js/session.js';
+  import { usuarioAtual }         from '../../app-academia/js/auth.js';
+  import { registrarEntradaFase } from '../../app-academia/js/progresso.js';
+
+  await requireAuth('../../app-academia/login.html').catch(() => {});
+  await session.aguardar();
+  document.body.style.visibility = 'visible';
+
+  window._concederXpGuardas = async function (xp) {
+    const user = usuarioAtual();
+    if (!user) return;
+    try { await registrarEntradaFase(user.uid, xp); }
+    catch (e) { console.error('[Enigma dos Guardas] Erro ao conceder XP:', e); }
+  };
+</script>
+</body>
+</html>

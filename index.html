@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jogos Passa-Tempo · KiFácil</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;1,500;1,600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #2e2016; --text: #f5ead0; --soft: #e8d4b0;
+    --gold: #e8b84b; --gold-dim: #b8891e; --border: rgba(212,170,106,0.35);
+    --panel: rgba(255,255,255,0.03);
+  }
+  html, body { min-height: 100%; font-family: 'Libre Baskerville', serif; color: var(--text); background: var(--bg); }
+  body { background: radial-gradient(ellipse at 50% 0%, #3a2a1a 0%, #1a1024 70%); }
+  header { text-align: center; padding: 48px 20px 30px; }
+  .eyebrow { font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
+  h1 { font-family: 'Lora', serif; font-size: clamp(28px, 5vw, 40px); font-weight: 600; margin-bottom: 8px; }
+  .sub { font-style: italic; color: var(--soft); font-size: 14px; }
+  main { max-width: 880px; margin: 0 auto; padding: 10px 20px 60px; }
+  .grade { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; }
+  a.jogo {
+    display: block; background: var(--panel); border: 1.5px solid var(--border);
+    border-radius: 14px; padding: 22px; text-decoration: none; color: inherit;
+    transition: border-color .2s, transform .2s, background .2s;
+  }
+  a.jogo:hover { border-color: rgba(232,184,75,0.6); background: rgba(232,184,75,0.06); transform: translateY(-3px); }
+  .icone { font-size: 34px; margin-bottom: 10px; }
+  .titulo { font-family: 'Lora', serif; font-size: 18px; font-weight: 600; margin-bottom: 4px; }
+  .tag { font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
+  .desc { font-size: 12.5px; color: var(--soft); line-height: 1.55; }
+  footer { text-align: center; padding: 30px 20px 50px; font-size: 11px; color: rgba(232,216,176,0.4); font-style: italic; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="eyebrow">KiFácil</div>
+  <h1>Jogos Passa-Tempo</h1>
+  <p class="sub">Escolha um jogo pra começar 🐾</p>
+</header>
+
+<main>
+  <div class="grade">
+
+    <a class="jogo" href="jogo-memoria/index.html">
+      <div class="icone">🐱</div>
+      <div class="titulo">Jogo da Memória</div>
+      <div class="tag">Concentração · 3 dificuldades</div>
+      <div class="desc">Vire as cartas e encontre os pares com os gatos da KiFácil.</div>
+    </a>
+
+    <a class="jogo" href="jogo-labirinto/index.html">
+      <div class="icone">🐾</div>
+      <div class="titulo">Jogo do Labirinto</div>
+      <div class="tag">Aventura · 6 gatos</div>
+      <div class="desc">Escolha seu gato favorito e guie ele por um labirinto até a saída.</div>
+    </a>
+
+    <a class="jogo" href="jogo-travessia/index.html">
+      <div class="icone">🛶</div>
+      <div class="titulo">Jogo da Travessia</div>
+      <div class="tag">Quebra-cabeça</div>
+      <div class="desc">O clássico enigma da travessia do rio, com o Chico, o Ratinho e a Ração.</div>
+    </a>
+
+    <a class="jogo" href="enigma-dos-gatos/index.html">
+      <div class="icone">🧩</div>
+      <div class="titulo">Enigma dos Gatos</div>
+      <div class="tag">Lógica · 3 níveis</div>
+      <div class="desc">Charada de lógica ao estilo Enigma da Zebra, com pistas e dedução pura.</div>
+    </a>
+
+    <a class="jogo" href="enigma-dos-guardas/index.html">
+      <div class="icone">🚪</div>
+      <div class="titulo">Enigma dos Guardas</div>
+      <div class="tag">Lógica · Lolo e Lanlan</div>
+      <div class="desc">Um guarda sempre mente, o outro sempre fala a verdade. Faça a pergunta certa.</div>
+    </a>
+
+    <a class="jogo" href="campo-dos-ratinhos/index.html">
+      <div class="icone">🐭</div>
+      <div class="titulo">Campo dos Ratinhos</div>
+      <div class="tag">Estilo Campo Minado · 3 níveis</div>
+      <div class="desc">Descubra as casas seguras na horta sem cair em cima de um ratinho.</div>
+    </a>
+
+  </div>
+</main>
+
+<footer>Aprendizado é liberdade.</footer>
+
+</body>
+</html>
