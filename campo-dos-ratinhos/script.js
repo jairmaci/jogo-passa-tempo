@@ -38,6 +38,9 @@ function fmtTempo(seg) {
   const s = Math.floor(seg % 60).toString().padStart(2, '0');
   return `${m}:${s}`;
 }
+function fmtDigital(n) {
+  return String(Math.max(0, Math.min(999, Math.floor(n)))).padStart(3, '0');
+}
 function tempoDecorrido() { return tempoInicio ? (Date.now() - tempoInicio) / 1000 : 0; }
 function iniciarTimer() { tempoInicio = Date.now(); timerInterval = setInterval(atualizarStats, 250); }
 function pararTimer() { if (timerInterval) clearInterval(timerInterval); timerInterval = null; }
@@ -94,7 +97,8 @@ function novoJogo(nivel) {
   tempoInicio = null;
 
   $('btn-modo-bandeira').classList.remove('ativo');
-  $('modo-atual').textContent = 'Modo: Revelar';
+  $('modo-atual').textContent = 'Modo: Revelar (clique direito marca 🐾)';
+  $('btn-rosto').textContent = '🐱';
 
   renderTabuleiro(cfg.cellSize);
   atualizarStats();
@@ -178,7 +182,14 @@ $('btn-modo-bandeira').addEventListener('click', () => {
   tocar('click');
   modoBandeira = !modoBandeira;
   $('btn-modo-bandeira').classList.toggle('ativo', modoBandeira);
-  $('modo-atual').textContent = modoBandeira ? 'Modo: Marcar 🐾' : 'Modo: Revelar';
+  $('modo-atual').textContent = modoBandeira ? 'Modo: Marcar 🐾' : 'Modo: Revelar (clique direito marca 🐾)';
+});
+
+/* ── ROSTINHO (recomeça o mesmo nível) ── */
+$('btn-rosto').addEventListener('click', () => {
+  if (!nivelAtual) return;
+  tocar('click');
+  novoJogo(nivelAtual);
 });
 
 /* ── CLIQUE NA CÉLULA ── */
@@ -243,6 +254,7 @@ function perdeuJogo(rClicada, cClicada) {
   jogoAtivo = false;
   pararTimer();
   tocar('tranca');
+  $('btn-rosto').textContent = '🙀';
 
   for (let r = 0; r < tamanho; r++) {
     for (let c = 0; c < tamanho; c++) {
@@ -264,6 +276,7 @@ function venceuJogo() {
   jogoAtivo = false;
   pararTimer();
   tocar('porta');
+  $('btn-rosto').textContent = '😻';
 
   for (let r = 0; r < tamanho; r++) {
     for (let c = 0; c < tamanho; c++) {
@@ -304,8 +317,8 @@ function venceuJogo() {
 
 /* ── STATS ── */
 function atualizarStats() {
-  $('stat-ratinhos').textContent = Math.max(0, totalMinas - bandeirasColocadas);
-  $('stat-tempo').textContent = fmtTempo(tempoDecorrido());
+  $('stat-ratinhos').textContent = fmtDigital(totalMinas - bandeirasColocadas);
+  $('stat-tempo').textContent = fmtDigital(tempoDecorrido());
 }
 
 /* ── OVERLAYS ── */

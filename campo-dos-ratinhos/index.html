@@ -24,18 +24,19 @@
     <div class="eyebrow">Campo dos Ratinhos · KiFácil</div>
     <h1 class="page-title">Campo dos Ratinhos</h1>
   </div>
-  <div class="header-stats" id="header-stats">
-    <div class="hstat"><span class="hstat-label">Ratinhos</span><span class="hstat-valor" id="stat-ratinhos">0</span></div>
-    <div class="hstat"><span class="hstat-label">Tempo</span><span class="hstat-valor" id="stat-tempo">00:00</span></div>
-  </div>
 </header>
 
 <div id="game-area">
 
   <div id="campo-wrap">
+    <div id="painel-classico">
+      <div class="contador-digital" id="stat-ratinhos">010</div>
+      <button id="btn-rosto" title="Recomeçar">🐱</button>
+      <div class="contador-digital" id="stat-tempo">000</div>
+    </div>
     <div id="campo-topo">
       <button class="btn-mini" id="btn-modo-bandeira">🐾 Marcar</button>
-      <div id="modo-atual">Modo: Revelar</div>
+      <div id="modo-atual">Modo: Revelar (clique direito marca 🐾)</div>
     </div>
     <div id="campo-scroll">
       <div id="campo-tabuleiro"></div>
@@ -48,8 +49,9 @@
       <div class="overlay-eyebrow">Preparação</div>
       <div class="overlay-titulo">Campo dos Ratinhos</div>
       <div class="overlay-texto">
-        O Chico está caçando na horta, mas tem ratinhos escondidos! Os números mostram quantos ratinhos tem por perto.
-        Clique pra explorar, marque 🐾 onde acha que tem ratinho. Ache todas as casas seguras sem cair em cima de um rato!
+        O Chico está caçando na horta, mas tem ratinhos escondidos! Os números mostram quantos ratinhos tem por perto.<br><br>
+        <strong>Clique com o botão esquerdo</strong> pra explorar uma casa. <strong>Clique com o botão direito</strong> pra colocar uma bandeirinha 🐾 onde acha que tem ratinho (no celular, use o botão "Marcar" no topo pra alternar).<br><br>
+        Ache todas as casas seguras sem cair em cima de um rato! Se errar, o jogo mostra onde estavam todos os ratinhos.
       </div>
       <div class="dificuldade-opcoes">
         <button class="dificuldade-card" data-nivel="facil">
