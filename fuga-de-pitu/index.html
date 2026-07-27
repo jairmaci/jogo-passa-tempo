@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fuga de Pitu · KiFacil</title>
+<title>Fuga de Pitu · KiFácil</title>
 <link rel="icon" type="image/png" href="/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;1,500;1,600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
@@ -35,7 +35,10 @@
 
 <div id="game-area">
   <div id="mapa-wrap">
-    <div id="mensagem-jogo">Cada chave abre uma porta. Abra todas para liberar o caminho ate a racao.</div>
+    <div id="barra-topo-jogo">
+      <div id="mensagem-jogo">Colete todas as chaves antes de passar pelas portas.</div>
+      <button class="btn-mini" id="btn-reiniciar-fase" title="Recomeçar esta fase">🔄 Reiniciar Fase</button>
+    </div>
     <div id="mapa" aria-label="Mapa da Fuga de Pitu"></div>
   </div>
 
@@ -52,28 +55,28 @@
 
   <div id="overlay-inicio" class="game-overlay">
     <div class="overlay-card">
-      <div class="overlay-eyebrow">Preparacao</div>
+      <div class="overlay-eyebrow">Preparação</div>
       <div class="overlay-titulo">Ajude Pitu a fugir</div>
       <div class="overlay-texto">
-        Sao 10 fases. Em cada uma, toda chave tem uma porta correspondente. O caminho da vasilha so fica completo depois que Pitu abrir todas as portas.
+        São 10 fases. Pitu precisa coletar <strong>todas</strong> as chaves de cada fase — mas cuidado: assim que ele passa por uma porta, ela <strong>se fecha atrás dele</strong> pra sempre! Se você abrir uma porta sem antes pegar a chave de um desvio, ela fica presa lá — aí só reiniciando a fase pra tentar de novo.
       </div>
-      <button class="btn-jogo" id="btn-comecar">Comecar</button>
+      <button class="btn-jogo" id="btn-comecar">Começar</button>
     </div>
   </div>
 
   <div id="overlay-fase" class="game-overlay hidden">
     <div class="overlay-card">
       <div class="overlay-eyebrow">Muito bem</div>
-      <div class="overlay-titulo" id="fase-titulo">Fase concluida</div>
+      <div class="overlay-titulo" id="fase-titulo">Fase concluída</div>
       <div class="overlay-texto" id="fase-texto"></div>
-      <button class="btn-jogo" id="btn-proxima-fase">Proxima Fase</button>
+      <button class="btn-jogo" id="btn-proxima-fase">Próxima Fase</button>
     </div>
   </div>
 
   <div id="overlay-vitoria" class="game-overlay hidden">
     <div class="overlay-card">
-      <div class="overlay-eyebrow">Parabens!</div>
-      <div class="overlay-titulo">Pitu encontrou a racao!</div>
+      <div class="overlay-eyebrow">Parabéns!</div>
+      <div class="overlay-titulo">Pitu encontrou a ração!</div>
       <div class="vitoria-stats-row">
         <div class="vitoria-stat"><strong id="vit-tempo">00:00</strong><span>Tempo</span></div>
         <div class="vitoria-stat"><strong id="vit-passos">0</strong><span>Passos</span></div>
