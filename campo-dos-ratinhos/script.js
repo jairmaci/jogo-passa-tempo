@@ -264,7 +264,7 @@ function perdeuJogo(rClicada, cClicada) {
   const elExplodida = elCelula(rClicada, cClicada);
   if (elExplodida) elExplodida.classList.add('explodiu');
 
-  mostrarOverlay('overlay-derrota');
+  $('painel-derrota').classList.remove('hidden');
 }
 
 function checarVitoria() {
@@ -324,6 +324,7 @@ function atualizarStats() {
 /* ── OVERLAYS ── */
 function esconderOverlays() {
   document.querySelectorAll('.game-overlay').forEach(el => el.classList.add('hidden'));
+  $('painel-derrota').classList.add('hidden');
 }
 function mostrarOverlay(id) {
   esconderOverlays();
