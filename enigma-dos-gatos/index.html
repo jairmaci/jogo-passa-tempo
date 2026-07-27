@@ -106,22 +106,8 @@
 
 <script src="pool-gerado.js"></script>
 <script src="script.js"></script>
-<script type="module">
-  import { requireAuth }          from '../../app-academia/js/guards.js';
-  import { session }              from '../../app-academia/js/session.js';
-  import { usuarioAtual }         from '../../app-academia/js/auth.js';
-  import { registrarEntradaFase } from '../../app-academia/js/progresso.js';
-
-  await requireAuth('../../app-academia/login.html').catch(() => {});
-  await session.aguardar();
-  document.body.style.visibility = 'visible';
-
-  window._concederXpEnigma = async function (xp) {
-    const user = usuarioAtual();
-    if (!user) return;
-    try { await registrarEntradaFase(user.uid, xp); }
-    catch (e) { console.error('[Enigma dos Gatos] Erro ao conceder XP:', e); }
-  };
+<script>
+    document.body.style.visibility = 'visible';
 </script>
 </body>
 </html>
