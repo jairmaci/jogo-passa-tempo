@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fuga de Pitu · KiFacil</title>
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;1,500;1,600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav class="nav">
+  <a href="../../app-academia/academia.html">Academia KiFacil</a>
+  <span class="nav-sep">›</span>
+  <a href="../../app-academia/jogos.html">Jogos</a>
+  <span class="nav-sep">›</span>
+  Fuga de Pitu
+</nav>
+
+<header class="header">
+  <div>
+    <div class="eyebrow">Aventura · KiFacil</div>
+    <h1 class="page-title">Fuga de Pitu</h1>
+  </div>
+  <div class="header-stats" id="header-stats">
+    <div class="hstat"><span class="hstat-label">Fase</span><span class="hstat-valor" id="stat-fase">1/10</span></div>
+    <div class="hstat"><span class="hstat-label">Chaves</span><span class="hstat-valor" id="stat-chaves">0/0</span></div>
+    <div class="hstat"><span class="hstat-label">Portas</span><span class="hstat-valor" id="stat-portas">0/0</span></div>
+    <div class="hstat"><span class="hstat-label">Passos</span><span class="hstat-valor" id="stat-passos">0</span></div>
+    <div class="hstat"><span class="hstat-label">Tempo</span><span class="hstat-valor" id="stat-tempo">00:00</span></div>
+  </div>
+</header>
+
+<div id="game-area">
+  <div id="mapa-wrap">
+    <div id="mensagem-jogo">Cada chave abre uma porta. Abra todas para liberar o caminho ate a racao.</div>
+    <div id="mapa" aria-label="Mapa da Fuga de Pitu"></div>
+  </div>
+
+  <div id="controles-mobile" class="hidden" aria-label="Controles">
+    <div class="ctrl-linha">
+      <button class="ctrl-btn" data-dir="cima">▲</button>
+    </div>
+    <div class="ctrl-linha">
+      <button class="ctrl-btn" data-dir="esquerda">◀</button>
+      <button class="ctrl-btn" data-dir="baixo">▼</button>
+      <button class="ctrl-btn" data-dir="direita">▶</button>
+    </div>
+  </div>
+
+  <div id="overlay-inicio" class="game-overlay">
+    <div class="overlay-card">
+      <div class="overlay-eyebrow">Preparacao</div>
+      <div class="overlay-titulo">Ajude Pitu a fugir</div>
+      <div class="overlay-texto">
+        Sao 10 fases. Em cada uma, toda chave tem uma porta correspondente. O caminho da vasilha so fica completo depois que Pitu abrir todas as portas.
+      </div>
+      <button class="btn-jogo" id="btn-comecar">Comecar</button>
+    </div>
+  </div>
+
+  <div id="overlay-fase" class="game-overlay hidden">
+    <div class="overlay-card">
+      <div class="overlay-eyebrow">Muito bem</div>
+      <div class="overlay-titulo" id="fase-titulo">Fase concluida</div>
+      <div class="overlay-texto" id="fase-texto"></div>
+      <button class="btn-jogo" id="btn-proxima-fase">Proxima Fase</button>
+    </div>
+  </div>
+
+  <div id="overlay-vitoria" class="game-overlay hidden">
+    <div class="overlay-card">
+      <div class="overlay-eyebrow">Parabens!</div>
+      <div class="overlay-titulo">Pitu encontrou a racao!</div>
+      <div class="vitoria-stats-row">
+        <div class="vitoria-stat"><strong id="vit-tempo">00:00</strong><span>Tempo</span></div>
+        <div class="vitoria-stat"><strong id="vit-passos">0</strong><span>Passos</span></div>
+      </div>
+      <div class="vitoria-xp" id="vit-xp"></div>
+      <div class="vitoria-recorde" id="vit-recorde"></div>
+      <div class="overlay-texto">Sair ou jogar de novo?</div>
+      <div class="overlay-actions">
+        <button class="btn-jogo" id="btn-jogar-de-novo">Jogar de Novo</button>
+        <a href="../../app-academia/jogos.html" class="btn-jogo-secundario">Sair</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+<script>
+    document.body.style.visibility = 'visible';
+</script>
+</body>
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Codigo do Cofre · KiFacil</title>
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;1,500;1,600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav class="nav">
+  <a href="../../app-academia/academia.html">Academia KiFacil</a>
+  <span class="nav-sep">›</span>
+  <a href="../../app-academia/jogos.html">Jogos</a>
+  <span class="nav-sep">›</span>
+  Codigo do Cofre
+</nav>
+
+<header class="header">
+  <div>
+    <div class="eyebrow">Logica · KiFacil</div>
+    <h1 class="page-title">Codigo do Cofre</h1>
+  </div>
+  <div class="header-stats" id="header-stats">
+    <div class="hstat"><span class="hstat-label">Tentativas</span><span class="hstat-valor" id="stat-tentativas">0/8</span></div>
+    <div class="hstat"><span class="hstat-label">Tempo</span><span class="hstat-valor" id="stat-tempo">00:00</span></div>
+    <div class="hstat"><span class="hstat-label">Melhor</span><span class="hstat-valor" id="stat-melhor">--</span></div>
+  </div>
+</header>
+
+<div id="game-area">
+
+  <main id="cofre-layout" class="hidden">
+    <section id="cofre-palco" aria-label="Cofre">
+      <div class="cofre-corpo">
+        <div class="cofre-brilho"></div>
+        <div class="cofre-porta">
+          <div class="cofre-anel">
+            <div class="cofre-miolo" id="cofre-miolo">KF</div>
+          </div>
+          <div class="cofre-travas">
+            <span></span><span></span><span></span>
+          </div>
+        </div>
+      </div>
+      <div id="mensagem-jogo">Monte um codigo com 4 selos diferentes.</div>
+    </section>
+
+    <section id="painel-jogo">
+      <div id="codigo-atual" aria-label="Codigo atual"></div>
+
+      <div id="selos" aria-label="Selos disponiveis"></div>
+
+      <div id="acoes">
+        <button class="btn-jogo-secundario" id="btn-apagar">Apagar</button>
+        <button class="btn-jogo" id="btn-testar">Testar Codigo</button>
+      </div>
+
+      <div id="historico-wrap">
+        <div class="historico-titulo">Tentativas</div>
+        <div id="historico"></div>
+      </div>
+    </section>
+  </main>
+
+  <div id="overlay-inicio" class="game-overlay">
+    <div class="overlay-card">
+      <div class="overlay-eyebrow">Preparacao</div>
+      <div class="overlay-titulo">Abra o cofre secreto</div>
+      <div class="overlay-texto">
+        Existe um codigo com <strong>4 selos diferentes</strong>. A cada tentativa, o cofre mostra quantos selos estao no lugar certo e quantos fazem parte do codigo, mas estao na posicao errada.
+      </div>
+      <div class="dificuldade-opcoes">
+        <button class="dificuldade-card" data-nivel="facil">
+          <div class="dificuldade-nome">Facil</div>
+          <div class="dificuldade-info">6 selos · 10 tentativas</div>
+        </button>
+        <button class="dificuldade-card" data-nivel="medio">
+          <div class="dificuldade-nome">Medio</div>
+          <div class="dificuldade-info">7 selos · 8 tentativas</div>
+        </button>
+        <button class="dificuldade-card" data-nivel="dificil">
+          <div class="dificuldade-nome">Dificil</div>
+          <div class="dificuldade-info">8 selos · 7 tentativas</div>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div id="overlay-ajuda" class="game-overlay hidden">
+    <div class="overlay-card">
+      <div class="overlay-eyebrow">Pista</div>
+      <div class="overlay-titulo">Como ler o resultado</div>
+      <div class="overlay-texto">
+        <strong>Certo</strong> significa selo correto na posicao correta. <strong>Deslocado</strong> significa que o selo existe no codigo, mas precisa trocar de lugar.
+      </div>
+      <button class="btn-jogo" id="btn-fechar-ajuda">Entendi</button>
+    </div>
+  </div>
+
+  <div id="overlay-resultado" class="game-overlay hidden">
+    <div class="overlay-card">
+      <div class="overlay-eyebrow" id="resultado-eyebrow">Resultado</div>
+      <div class="overlay-titulo" id="resultado-titulo">...</div>
+      <div class="overlay-texto" id="resultado-texto"></div>
+      <div class="codigo-revelado" id="codigo-revelado"></div>
+      <div class="vitoria-xp hidden" id="vit-xp"></div>
+      <div class="vitoria-recorde" id="vit-recorde"></div>
+      <div class="overlay-actions">
+        <button class="btn-jogo" id="btn-jogar-de-novo">Jogar de Novo</button>
+        <button class="btn-jogo-secundario" id="btn-trocar-nivel">Trocar Dificuldade</button>
+        <a href="../../app-academia/jogos.html" class="btn-jogo-secundario">Sair</a>
+      </div>
+    </div>
+  </div>
+
+  <button id="btn-ajuda" class="btn-ajuda" aria-label="Ver pista">?</button>
+</div>
+
+<script src="script.js"></script>
+<script>
+    document.body.style.visibility = 'visible';
+</script>
+</body>
+</html>
