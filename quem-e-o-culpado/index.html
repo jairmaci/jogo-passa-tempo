@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quem É o Culpado? · KiFácil</title>
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;1,500;1,600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="../rafaela-tutorial.css">
+</head>
+<body>
+
+<nav class="nav">
+  <a href="../../app-academia/academia.html">Academia KiFácil</a>
+  <span class="nav-sep">›</span>
+  <a href="../../app-academia/jogos.html">Jogos</a>
+  <span class="nav-sep">›</span>
+  Quem É o Culpado?
+</nav>
+
+<header class="header">
+  <div>
+    <div class="eyebrow">Mistério · KiFácil</div>
+    <h1 class="page-title">Quem É o Culpado?</h1>
+  </div>
+  <div class="header-stats" id="header-stats">
+    <div class="hstat"><span class="hstat-label">Tempo</span><span class="hstat-valor" id="stat-tempo">00:00</span></div>
+  </div>
+</header>
+
+<div id="game-area">
+
+  <div id="caso-wrap" class="hidden">
+    <div id="caso-topo">
+      <button class="btn-mini" id="btn-modo-eliminar">✏️ Eliminar</button>
+      <button class="btn-mini" id="btn-modo-escolher">👉 Escolher resposta</button>
+      <div id="modo-atual">Modo: Eliminar (risque quem não foi)</div>
+    </div>
+
+    <div id="categorias-wrap"></div>
+
+    <div id="pistas-wrap">
+      <div class="pistas-titulo">🔍 Pistas do caso</div>
+      <div id="pistas-lista"></div>
+    </div>
+
+    <button class="btn-jogo" id="btn-acusar" disabled>🐾 Acusar!</button>
+  </div>
+
+  <!-- SELEÇÃO DE DIFICULDADE -->
+  <div id="overlay-inicio" class="game-overlay hidden">
+    <div class="overlay-card">
+      <div class="overlay-eyebrow">Preparação</div>
+      <div class="overlay-titulo">Quem É o Culpado?</div>
+      <div class="overlay-texto">
+        Rolou uma traquinagem lá em casa! Use as pistas pra descobrir <strong>quem</strong> fez, <strong>onde</strong>, <strong>o quê</strong> e <strong>quando</strong>.
+      </div>
+      <div class="dificuldade-opcoes">
+        <button class="dificuldade-card" data-nivel="facil">
+          <div class="dificuldade-nome">Fácil</div>
+          <div class="dificuldade-info">3 opções por categoria</div>
+          <div class="dificuldade-recorde" id="recorde-facil"></div>
+        </button>
+        <button class="dificuldade-card" data-nivel="medio">
+          <div class="dificuldade-nome">Médio</div>
+          <div class="dificuldade-info">4 opções por categoria</div>
+          <div class="dificuldade-recorde" id="recorde-medio"></div>
+        </button>
+        <button class="dificuldade-card" data-nivel="dificil">
+          <div class="dificuldade-nome">Difícil</div>
+          <div class="dificuldade-info">5 opções por categoria</div>
+          <div class="dificuldade-recorde" id="recorde-dificil"></div>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- RESULTADO -->
+  <div id="overlay-resultado" class="game-overlay hidden">
+    <div class="overlay-card">
+      <div class="overlay-eyebrow" id="resultado-eyebrow">Resultado</div>
+      <div class="overlay-titulo" id="resultado-titulo">...</div>
+      <div class="overlay-texto" id="resultado-texto"></div>
+      <div class="vitoria-stats-row" id="resultado-stats">
+        <div class="vitoria-stat"><strong id="vit-tempo">00:00</strong><span>Tempo</span></div>
+      </div>
+      <div class="vitoria-xp" id="vit-xp"></div>
+      <div class="vitoria-recorde" id="vit-recorde"></div>
+      <div class="overlay-actions">
+        <button class="btn-jogo" id="btn-jogar-de-novo">🔁 Jogar de Novo</button>
+        <button class="btn-jogo-secundario" id="btn-tentar-de-novo">🔍 Rever as pistas</button>
+        <a href="../../app-academia/jogos.html" class="btn-jogo-secundario">🚪 Sair</a>
+        <button class="btn-jogo-secundario" id="btn-trocar-nivel">Trocar Nível</button>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /game-area -->
+
+<script src="script.js"></script>
+<script src="../rafaela-tutorial.js"></script>
+<script>
+    document.body.style.visibility = 'visible';
+    iniciarTutorialRafaela([
+      'Oi! Eu sou a Rafaela. Rolou uma traquinagem lá em casa e precisamos descobrir quem foi!',
+      'Tem 4 categorias: o gato suspeito, o local, o que ele aprontou, e o horário. Uma combinação é a verdadeira.',
+      'Leia as pistas com atenção — cada uma elimina uma possibilidade. Use o modo "Eliminar" pra riscar quem já sabe que não foi.',
+      'Quando tiver certeza, mude pro modo "Escolher resposta", marque sua resposta em cada categoria, e aperte "Acusar!". Boa sorte, detetive! 🐾',
+    ], () => abrirSelecaoNivel());
+</script>
+</body>
+</html>
