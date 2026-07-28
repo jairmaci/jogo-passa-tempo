@@ -55,7 +55,7 @@ body { display: flex; flex-direction: column; visibility: hidden; min-height: 10
 #mesa-cena { display: flex; justify-content: center; margin-bottom: 20px; }
 #mesa-circular {
   position: relative;
-  width: 320px; height: 320px;
+  width: 400px; height: 400px;
   border-radius: 50%;
   background: radial-gradient(ellipse at center, #6b4a2c 0%, #4a3320 70%, #2e2016 100%);
   border: 6px solid #3b2818;
@@ -72,11 +72,11 @@ body { display: flex; flex-direction: column; visibility: hidden; min-height: 10
 
 .cadeira {
   position: absolute;
-  width: 68px; height: 68px;
+  width: 96px; height: 96px;
   transform: translate(-50%, -50%);
   border-radius: 50%;
   background: rgba(0,0,0,0.3);
-  border: 2.5px dashed rgba(232,184,75,0.4);
+  border: 3px dashed rgba(232,184,75,0.4);
   display: flex; align-items: center; justify-content: center;
   cursor: pointer;
   transition: border-color .15s, background .15s, transform .15s;
@@ -86,25 +86,25 @@ body { display: flex; flex-direction: column; visibility: hidden; min-height: 10
 .cadeira.selecionavel { border-color: var(--ok); background: rgba(100,220,130,0.15); animation: cadeiraPiscar 1s ease-in-out infinite; }
 @keyframes cadeiraPiscar { 0%,100% { box-shadow: 0 0 0 0 rgba(100,220,130,0.5); } 50% { box-shadow: 0 0 0 6px rgba(100,220,130,0); } }
 .cadeira img { width: 100%; height: 100%; object-fit: contain; border-radius: 50%; }
-.cadeira .cadeira-num { position: absolute; bottom: -16px; font-size: 9px; color: rgba(232,216,176,0.4); }
+.cadeira .cadeira-num { position: absolute; bottom: -20px; font-size: 12px; color: rgba(232,216,176,0.5); }
 
-#pool-titulo { text-align: center; font-size: 12px; color: var(--soft); font-style: italic; margin-bottom: 12px; }
-#pool-gatos { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-bottom: 22px; }
+#pool-titulo { text-align: center; font-size: 13px; color: var(--soft); font-style: italic; margin-bottom: 14px; }
+#pool-gatos { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; margin-bottom: 26px; }
 
 .gato-token {
-  width: 64px;
-  display: flex; flex-direction: column; align-items: center; gap: 4px;
+  width: 92px;
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
   cursor: pointer;
-  padding: 6px;
-  border-radius: 10px;
+  padding: 8px;
+  border-radius: 12px;
   border: 2px solid transparent;
   transition: border-color .15s, background .15s, opacity .15s;
 }
 .gato-token:hover { background: rgba(232,184,75,0.08); }
 .gato-token.selecionado { border-color: var(--ok); background: rgba(100,220,130,0.12); }
 .gato-token.usado { opacity: .2; pointer-events: none; }
-.gato-token img { width: 46px; height: 46px; object-fit: contain; border-radius: 50%; }
-.gato-token span { font-size: 10px; color: var(--soft); }
+.gato-token img { width: 72px; height: 72px; object-fit: contain; border-radius: 50%; }
+.gato-token span { font-size: 15px; font-weight: 700; color: var(--soft); }
 
 #pistas-wrap {
   background: rgba(255,255,255,0.03);
@@ -207,8 +207,11 @@ body { display: flex; flex-direction: column; visibility: hidden; min-height: 10
   .nav { padding: 8px 14px; font-size: 10px; }
   .header { padding: 10px 14px; }
   .page-title { font-size: 18px; }
-  #mesa-circular { width: 260px; height: 260px; }
-  .cadeira { width: 56px; height: 56px; }
+  #mesa-circular { width: 320px; height: 320px; }
+  .cadeira { width: 78px; height: 78px; }
+  .gato-token { width: 76px; }
+  .gato-token img { width: 58px; height: 58px; }
+  .gato-token span { font-size: 13px; }
   .overlay-card { padding: 1.5rem 1.4rem; }
   .overlay-titulo { font-size: 19px; }
 }
