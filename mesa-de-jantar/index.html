@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mesa de Jantar · KiFácil</title>
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;1,500;1,600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="../rafaela-tutorial.css">
+</head>
+<body>
+
+<nav class="nav">
+  <a href="../../app-academia/academia.html">Academia KiFácil</a>
+  <span class="nav-sep">›</span>
+  <a href="../../app-academia/jogos.html">Jogos</a>
+  <span class="nav-sep">›</span>
+  Mesa de Jantar
+</nav>
+
+<header class="header">
+  <div>
+    <div class="eyebrow">Lógica · KiFácil</div>
+    <h1 class="page-title">Mesa de Jantar</h1>
+  </div>
+  <div class="header-stats" id="header-stats">
+    <div class="hstat"><span class="hstat-label">Tempo</span><span class="hstat-valor" id="stat-tempo">00:00</span></div>
+  </div>
+</header>
+
+<div id="game-area">
+
+  <div id="mesa-wrap" class="hidden">
+    <div id="mesa-cena">
+      <div id="mesa-circular">
+        <div id="mesa-centro">🍽️</div>
+        <div id="seta-sentido">↻ sentido horário</div>
+      </div>
+    </div>
+
+    <div id="pool-titulo">Arraste... quer dizer, clique num gato e depois numa cadeira vazia</div>
+    <div id="pool-gatos"></div>
+
+    <div id="pistas-wrap">
+      <div class="pistas-titulo">🔍 Pistas da mesa</div>
+      <div id="pistas-lista"></div>
+    </div>
+
+    <button class="btn-jogo" id="btn-confirmar" disabled>🐾 Confirmar arrumação</button>
+  </div>
+
+  <!-- SELEÇÃO DE DIFICULDADE -->
+  <div id="overlay-inicio" class="game-overlay hidden">
+    <div class="overlay-card">
+      <div class="overlay-eyebrow">Preparação</div>
+      <div class="overlay-titulo">Mesa de Jantar</div>
+      <div class="overlay-texto">
+        Os gatos vão jantar juntos! Use as pistas pra descobrir a ordem certa em que eles sentam ao redor da mesa.
+      </div>
+      <div class="dificuldade-opcoes">
+        <button class="dificuldade-card" data-nivel="facil">
+          <div class="dificuldade-nome">Fácil</div>
+          <div class="dificuldade-info">4 gatos</div>
+          <div class="dificuldade-recorde" id="recorde-facil"></div>
+        </button>
+        <button class="dificuldade-card" data-nivel="medio">
+          <div class="dificuldade-nome">Médio</div>
+          <div class="dificuldade-info">5 gatos</div>
+          <div class="dificuldade-recorde" id="recorde-medio"></div>
+        </button>
+        <button class="dificuldade-card" data-nivel="dificil">
+          <div class="dificuldade-nome">Difícil</div>
+          <div class="dificuldade-info">6 gatos</div>
+          <div class="dificuldade-recorde" id="recorde-dificil"></div>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- RESULTADO -->
+  <div id="overlay-resultado" class="game-overlay hidden">
+    <div class="overlay-card">
+      <div class="overlay-eyebrow" id="resultado-eyebrow">Resultado</div>
+      <div class="overlay-titulo" id="resultado-titulo">...</div>
+      <div class="overlay-texto" id="resultado-texto"></div>
+      <div class="vitoria-stats-row" id="resultado-stats">
+        <div class="vitoria-stat"><strong id="vit-tempo">00:00</strong><span>Tempo</span></div>
+      </div>
+      <div class="vitoria-xp" id="vit-xp"></div>
+      <div class="vitoria-recorde" id="vit-recorde"></div>
+      <div class="overlay-actions">
+        <button class="btn-jogo" id="btn-jogar-de-novo">🔁 Jogar de Novo</button>
+        <button class="btn-jogo-secundario" id="btn-tentar-de-novo">🔍 Rever a mesa</button>
+        <a href="../../app-academia/jogos.html" class="btn-jogo-secundario">🚪 Sair</a>
+        <button class="btn-jogo-secundario" id="btn-trocar-nivel">Trocar Nível</button>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /game-area -->
+
+<script src="script.js"></script>
+<script src="../rafaela-tutorial.js"></script>
+<script>
+    document.body.style.visibility = 'visible';
+    iniciarTutorialRafaela([
+      'Oi! Eu sou a Rafaela. Os gatos vão jantar juntos, e você vai descobrir a ordem em que eles sentam!',
+      'Clique num gato da lista embaixo, depois clique numa cadeira vazia na mesa pra sentar ele ali.',
+      'As pistas contam quem senta do lado de quem, quem está à direita de quem (sempre no sentido horário ↻), e quem senta entre duas pessoas.',
+      'Quando todas as cadeiras estiverem ocupadas, aperte "Confirmar arrumação". Boa sorte! 🐾',
+    ], () => abrirSelecaoNivel());
+</script>
+</body>
+</html>
