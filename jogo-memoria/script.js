@@ -269,5 +269,4 @@ function mostrarOverlay(id) {
   $(id).classList.remove('hidden');
 }
 
-/* ── INÍCIO ── */
-abrirSelecaoDificuldade();
+/* ── INÍCIO ── (disparado pelo tutorial da Rafaela, ver index.html) */

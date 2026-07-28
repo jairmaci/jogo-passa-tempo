@@ -1,0 +1,112 @@
+/* ── TUTORIAL DA RAFAELA — componente compartilhado entre os jogos ── */
+#rafaela-overlay {
+  position: absolute; inset: 0; z-index: 500;
+  background: rgba(6,3,0,0.94);
+  display: flex; align-items: center; justify-content: center;
+  padding: 20px;
+}
+#rafaela-overlay.hidden { display: none; }
+
+.rafaela-card {
+  background: var(--panel-bg, rgba(6,3,0,0.93));
+  border: 1.5px solid rgba(212,170,106,0.4);
+  border-radius: 16px;
+  padding: 1.8rem 2rem 1.6rem;
+  max-width: 460px; width: 100%;
+  display: flex; flex-direction: column; align-items: center; gap: .9rem;
+  box-shadow: 0 8px 50px rgba(0,0,0,.85);
+  max-height: 92vh; overflow-y: auto;
+  text-align: center;
+}
+
+.rafaela-img-wrap {
+  width: 96px; height: 96px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2.5px solid var(--gold, #e8b84b);
+  box-shadow: 0 0 16px rgba(232,184,75,0.4);
+  flex-shrink: 0;
+  animation: rafaelaRespirar 2.6s ease-in-out infinite;
+}
+.rafaela-img-wrap img { width: 100%; height: 100%; object-fit: cover; object-position: center 15%; }
+@keyframes rafaelaRespirar {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.035); }
+}
+
+.rafaela-nome {
+  font-family: 'Lora', serif; font-size: 11px; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--gold, #e8b84b);
+}
+
+.rafaela-balao {
+  position: relative;
+  background: #fff8ee;
+  color: #2e2016;
+  border-radius: 14px;
+  padding: 14px 18px;
+  font-size: 13.5px;
+  line-height: 1.6;
+  min-height: 64px;
+  display: flex; align-items: center; justify-content: center;
+}
+.rafaela-balao::before {
+  content: '';
+  position: absolute; top: -8px; left: 50%; transform: translateX(-50%);
+  border-left: 8px solid transparent; border-right: 8px solid transparent;
+  border-bottom: 8px solid #fff8ee;
+}
+
+.rafaela-pontos { display: flex; gap: 6px; margin: 2px 0; }
+.rafaela-ponto {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: rgba(232,184,75,0.25);
+  transition: background .2s;
+}
+.rafaela-ponto.ativo { background: var(--gold, #e8b84b); }
+
+.rafaela-acoes {
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  width: 100%; margin-top: .4rem;
+}
+.rafaela-btn-nav {
+  background: transparent;
+  border: 1px solid rgba(232,184,75,0.4);
+  border-radius: 8px;
+  color: var(--gold, #e8b84b);
+  font-family: 'Libre Baskerville', serif;
+  font-size: 12px; font-weight: 700;
+  padding: .6rem 1rem;
+  cursor: pointer;
+  min-width: 84px;
+}
+.rafaela-btn-nav:hover { border-color: var(--gold, #e8b84b); background: rgba(232,184,75,0.08); }
+.rafaela-btn-nav:disabled { opacity: .25; cursor: default; }
+.rafaela-btn-nav:disabled:hover { background: transparent; }
+
+.rafaela-btn-principal {
+  background: linear-gradient(135deg, var(--gold, #e8b84b), var(--gold-dim, #b8891e));
+  border: none; border-radius: 8px;
+  padding: .6rem 1.3rem;
+  font-family: 'Libre Baskerville', serif;
+  font-size: 12px; font-weight: 700;
+  color: #1a0f08; cursor: pointer;
+  flex: 1;
+}
+.rafaela-btn-principal:hover { filter: brightness(1.1); }
+
+.rafaela-pular {
+  background: none; border: none;
+  color: rgba(232,216,176,0.5);
+  font-family: 'Libre Baskerville', serif;
+  font-size: 11px; text-decoration: underline;
+  cursor: pointer;
+  margin-top: 2px;
+}
+.rafaela-pular:hover { color: rgba(232,216,176,0.8); }
+
+@media (max-width: 480px) {
+  .rafaela-card { padding: 1.4rem 1.3rem 1.2rem; }
+  .rafaela-img-wrap { width: 76px; height: 76px; }
+  .rafaela-balao { font-size: 12.5px; padding: 12px 14px; }
+}

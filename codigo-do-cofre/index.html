@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;1,500;1,600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="../rafaela-tutorial.css">
 </head>
 <body>
 
@@ -66,7 +67,7 @@
     </section>
   </main>
 
-  <div id="overlay-inicio" class="game-overlay">
+  <div id="overlay-inicio" class="game-overlay hidden">
     <div class="overlay-card">
       <div class="overlay-eyebrow">Preparacao</div>
       <div class="overlay-titulo">Abra o cofre secreto</div>
@@ -121,8 +122,15 @@
 </div>
 
 <script src="script.js"></script>
+<script src="../rafaela-tutorial.js"></script>
 <script>
     document.body.style.visibility = 'visible';
+    iniciarTutorialRafaela([
+      'Oi! Eu sou a Rafaela. Esse é o Código do Cofre — um jogo de lógica parecido com o Mastermind!',
+      'Existe um código secreto com selos diferentes. Você tenta adivinhar, e o cofre te dá pistas.',
+      'Ele mostra quantos selos estão na posição certa, e quantos fazem parte do código mas estão no lugar errado.',
+      'Use essas pistas pra ir se aproximando do código certo a cada tentativa. Tem um botão de ajuda (?) se precisar. Boa sorte! 🐾',
+    ], () => mostrarOverlay('overlay-inicio'));
 </script>
 </body>
 </html>

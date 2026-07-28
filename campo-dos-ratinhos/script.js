@@ -331,5 +331,4 @@ function mostrarOverlay(id) {
   $(id).classList.remove('hidden');
 }
 
-/* ── INÍCIO ── */
-abrirSelecaoNivel();
+/* ── INÍCIO ── (disparado pelo tutorial da Rafaela, ver index.html) */

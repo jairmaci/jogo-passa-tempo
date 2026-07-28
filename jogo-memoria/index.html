@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;1,500;1,600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="../rafaela-tutorial.css">
 </head>
 <body>
 
@@ -45,7 +46,7 @@
   </div>
 
   <!-- TELA DE SELEÇÃO DE DIFICULDADE -->
-  <div id="overlay-dificuldade" class="game-overlay">
+  <div id="overlay-dificuldade" class="game-overlay hidden">
     <div class="overlay-card">
       <div class="overlay-eyebrow">Preparação</div>
       <div class="overlay-titulo">Escolha a dificuldade</div>
@@ -93,8 +94,15 @@
 </div><!-- /game-area -->
 
 <script src="script.js"></script>
+<script src="../rafaela-tutorial.js"></script>
 <script>
     document.body.style.visibility = 'visible';
+    iniciarTutorialRafaela([
+      'Oi! Eu sou a Rafaela. Nesse jogo você vira as cartas em pares — se forem iguais, elas ficam reveladas!',
+      'Escolha entre Fácil, Médio ou Difícil. Quanto mais difícil, mais cartas pra memorizar.',
+      'No começo, todas as cartas ficam viradas pra você memorizar. Quando estiver pronto, é só apertar "Embaralhar e Começar"!',
+      'Encontre todos os pares no menor tempo e nas menos jogadas possível pra bater seu recorde. Boa sorte! 🐾',
+    ], abrirSelecaoDificuldade);
 </script>
 </body>
 </html>
