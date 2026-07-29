@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dama dos Gatos · KiFácil</title>
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;1,500;1,600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="../rafaela-tutorial.css">
+</head>
+<body>
+
+<nav class="nav">
+  <a href="../../app-academia/academia.html">Academia KiFácil</a>
+  <span class="nav-sep">›</span>
+  <a href="../../app-academia/jogos.html">Jogos</a>
+  <span class="nav-sep">›</span>
+  Dama dos Gatos
+</nav>
+
+<header class="header">
+  <div>
+    <div class="eyebrow">Estratégia · KiFácil</div>
+    <h1 class="page-title">Dama dos Gatos</h1>
+  </div>
+  <div class="header-stats" id="header-stats">
+    <div class="hstat"><span class="hstat-label">Tempo</span><span class="hstat-valor" id="stat-tempo">00:00</span></div>
+    <div class="hstat"><span class="hstat-label">Suas Peças</span><span class="hstat-valor" id="stat-pecas-humano">6</span></div>
+    <div class="hstat"><span class="hstat-label">Peças da IA</span><span class="hstat-valor" id="stat-pecas-computador">6</span></div>
+  </div>
+</header>
+
+<div id="game-area">
+
+  <div id="dama-wrap" class="hidden">
+    <div id="dama-legenda">🟡 Você &nbsp; 🔵 Computador — clique numa peça sua e depois num quadrado destacado</div>
+    <div id="turno-indicador"></div>
+    <div id="tabuleiro"></div>
+  </div>
+
+  <!-- SELEÇÃO DE DIFICULDADE -->
+  <div id="overlay-inicio" class="game-overlay hidden">
+    <div class="overlay-card">
+      <div class="overlay-eyebrow">Preparação</div>
+      <div class="overlay-titulo">Dama dos Gatos</div>
+      <div class="overlay-texto">
+        Os 6 gatinhos se enfrentam num tabuleiro de dama 6×6. Escolha a dificuldade do computador e capture todas as peças dele!
+      </div>
+      <div class="dificuldade-opcoes">
+        <button class="dificuldade-card" data-nivel="facil">
+          <div class="dificuldade-nome">Fácil</div>
+          <div class="dificuldade-info">Computador iniciante, comete erros</div>
+          <div class="dificuldade-recorde" id="recorde-facil"></div>
+        </button>
+        <button class="dificuldade-card" data-nivel="medio">
+          <div class="dificuldade-nome">Médio</div>
+          <div class="dificuldade-info">Computador pensa algumas jogadas à frente</div>
+          <div class="dificuldade-recorde" id="recorde-medio"></div>
+        </button>
+        <button class="dificuldade-card" data-nivel="dificil">
+          <div class="dificuldade-nome">Difícil</div>
+          <div class="dificuldade-info">Computador joga o melhor lance quase sempre</div>
+          <div class="dificuldade-recorde" id="recorde-dificil"></div>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- RESULTADO -->
+  <div id="overlay-resultado" class="game-overlay hidden">
+    <div class="overlay-card">
+      <div class="overlay-eyebrow" id="resultado-eyebrow">Resultado</div>
+      <div class="overlay-titulo" id="resultado-titulo">...</div>
+      <div class="overlay-texto" id="resultado-texto"></div>
+      <div class="vitoria-stats-row" id="resultado-stats">
+        <div class="vitoria-stat"><strong id="vit-tempo">00:00</strong><span>Tempo</span></div>
+        <div class="vitoria-stat"><strong id="vit-capturas">0</strong><span>Capturas</span></div>
+      </div>
+      <div class="vitoria-xp hidden" id="vit-xp"></div>
+      <div class="vitoria-recorde" id="vit-recorde"></div>
+      <div class="overlay-actions">
+        <button class="btn-jogo" id="btn-jogar-de-novo">🔁 Jogar de Novo</button>
+        <a href="../../app-academia/jogos.html" class="btn-jogo-secundario">🚪 Sair</a>
+        <button class="btn-jogo-secundario" id="btn-trocar-nivel">Trocar Nível</button>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /game-area -->
+
+<script src="script.js"></script>
+<script src="../rafaela-tutorial.js"></script>
+<script>
+    document.body.style.visibility = 'visible';
+    iniciarTutorialRafaela([
+      'Oi! Eu sou a Rafaela. Nessa Dama dos Gatos, você joga contra o computador!',
+      'Os dois times usam os mesmos 6 gatinhos — Chico, Pitu, Teti, Bentinho, Lolo e Lanlan. As peças com anel dourado são suas; as com anel azul são do computador.',
+      'Clique numa peça sua pra ver pra onde ela pode ir. Depois clique num quadrado destacado pra mover.',
+      'Se você puder pular por cima de uma peça do computador pra capturar ela, é obrigado a capturar! E se der pra continuar capturando com a mesma peça, tem que continuar.',
+      'Se sua peça chegar até a última fileira do outro lado, ela vira uma dama e ganha uma coroa 👑 — aí pode andar várias casas na diagonal, pra qualquer direção!',
+      'Escolha o nível de dificuldade e boa sorte! 🐾',
+    ], () => abrirSelecaoNivel());
+</script>
+</body>
+</html>
