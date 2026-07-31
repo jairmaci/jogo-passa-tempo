@@ -17,14 +17,7 @@ let sequencia = 0;
 let melhorSequencia = parseInt(localStorage.getItem(RECORDE_KEY), 10) || 0;
 
 /* ── UTIL ── */
-function tocar(nome) {
-  const m = {
-    click: '../../app-academia/sons/click.mp3',
-    ding:  '../../app-academia/sons/ding.mp3',
-    porta: '../../app-academia/sons/porta-abrindo.mp3',
-  };
-  try { new Audio(m[nome]).play().catch(() => {}); } catch (e) {}
-}
+function tocar() {} // efeitos sonoros desativados (áudios não fazem parte deste repositório)
 function oposta(porta) { return porta === 'esquerda' ? 'direita' : 'esquerda'; }
 function outroGuarda(guarda) { return guarda === 'lolo' ? 'lanlan' : 'lolo'; }
 function ehSincero(guarda) { return guarda !== guardaMentiroso; }

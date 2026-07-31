@@ -32,15 +32,7 @@ let inicioTempo = null;
 let timerInterval = null;
 let jogoAtivo = false;
 
-function tocar(nome) {
-  const sons = {
-    click: '../../app-academia/sons/click.mp3',
-    ding: '../../app-academia/sons/ding.mp3',
-    porta: '../../app-academia/sons/porta-abrindo.mp3',
-    tranca: '../../app-academia/sons/trancando.MP3',
-  };
-  try { new Audio(sons[nome]).play().catch(() => {}); } catch (e) {}
-}
+function tocar() {} // efeitos sonoros desativados (áudios não fazem parte deste repositório)
 
 function fmtTempo(segundos) {
   const m = Math.floor(segundos / 60).toString().padStart(2, '0');

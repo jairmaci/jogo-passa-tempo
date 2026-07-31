@@ -70,15 +70,7 @@ function fmtTempo(seg) {
   const s = Math.floor(seg % 60).toString().padStart(2, '0');
   return `${m}:${s}`;
 }
-function tocar(nome) {
-  const m = {
-    click: '../../app-academia/sons/click.mp3',
-    ding:  '../../app-academia/sons/ding.mp3',
-    erro:  '../../app-academia/sons/magica.mp3',
-    porta: '../../app-academia/sons/porta-abrindo.mp3',
-  };
-  try { new Audio(m[nome]).play().catch(() => {}); } catch (e) {}
-}
+function tocar() {} // efeitos sonoros desativados (áudios não fazem parte deste repositório)
 
 /* ── SELEÇÃO DE DIFICULDADE ── */
 function abrirSelecaoDificuldade() {

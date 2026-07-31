@@ -49,15 +49,7 @@ function embaralhar(arr) {
   }
   return a;
 }
-function tocar(nome) {
-  const sons = {
-    click: '../../app-academia/sons/click.mp3',
-    ding: '../../app-academia/sons/ding.mp3',
-    porta: '../../app-academia/sons/porta-abrindo.mp3',
-    tranca: '../../app-academia/sons/trancando.MP3',
-  };
-  try { new Audio(sons[nome]).play().catch(() => {}); } catch (e) {}
-}
+function tocar() {} // efeitos sonoros desativados (áudios não fazem parte deste repositório)
 function fmtTempo(seg) {
   const m = Math.floor(seg / 60).toString().padStart(2, '0');
   const s = Math.floor(seg % 60).toString().padStart(2, '0');
